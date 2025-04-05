@@ -26,4 +26,12 @@ public class ClientController {
         Page<ClientDTO> clientDTOPage = service.findAll(pageable);
         return ResponseEntity.ok(clientDTOPage);
     }
+
+    @PostMapping
+    public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO clientDTO) {
+        ClientDTO clientDTOInsert = service.insert(clientDTO);
+        return ResponseEntity.ok(clientDTOInsert);
+    }
+
+
 }
