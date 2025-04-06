@@ -2,6 +2,7 @@ package com.devsuperior.CRUD.controller;
 
 import com.devsuperior.CRUD.dto.ClientDTO;
 import com.devsuperior.CRUD.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,14 +32,14 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO clientDTO) {
         ClientDTO clientDTOInsert = service.insert(clientDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientDTOInsert.getId()).toUri();
         return ResponseEntity.created(uri).body(clientDTOInsert);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO clientDTO, @PathVariable Long id) {
+    public ResponseEntity<ClientDTO> update(@Valid @RequestBody ClientDTO clientDTO, @PathVariable Long id) {
         ClientDTO clientDTOUpdate = service.update(clientDTO, id);
         return ResponseEntity.ok(clientDTOUpdate);
     }
